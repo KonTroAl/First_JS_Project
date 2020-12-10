@@ -1,14 +1,48 @@
+.menu {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
 .basket {
     display: flex;
     width: 500px;
-    height: 50px;
+    height: 100%;
     border: 1px solid #000;
     margin-bottom: 30px;
+    flex-direction: column;
+    padding-top: 20px;
+
 }
 
 .basket_text{
     margin-top: 0 auto;
     text-align: center;
+}
+
+.basket_container {
+    display: flex;
+    width: 500px;
+    height: 100%;
+    /* border: 1px solid #000; */
+    margin-top: 20px;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+.basket_products {
+    width: 500px;
+    height: 100%;
+    border: 1px solid #000;
+    display: flex;
+    padding: 20px 20px;
+    padding-bottom: 0px;
+    flex-direction: column;
+}
+
+.basket_buttons {
+    display: flex;
+    justify-content: space-between;
 }
 
 .products {
@@ -35,4 +69,5 @@
 
 .buy_button {
     background-color: rgb(200, 146, 250);
+    margin-bottom: 20px;
 }
