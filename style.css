@@ -1,0 +1,38 @@
+.basket {
+    display: flex;
+    width: 500px;
+    height: 50px;
+    border: 1px solid #000;
+    margin-bottom: 30px;
+}
+
+.basket_text{
+    margin-top: 0 auto;
+    text-align: center;
+}
+
+.products {
+    height: 300px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+
+}
+
+.product {
+    height: 100px;
+    width: 500px;
+    border: 1px solid #000;
+    margin-bottom: 20px;
+
+}
+
+.product_text {
+    margin-top: 0 auto;
+    text-align: left;
+}
+
+.buy_button {
+    background-color: rgb(200, 146, 250);
+}
