@@ -44,6 +44,8 @@ let basket = {
             basket_text.textContent = "Корзина пуста!";
             my_basket.appendChild(basket_main);
             my_basket.appendChild(basket_text);
+            comments_container.classList.add('not_active');
+
 
 
         } else {
@@ -174,6 +176,8 @@ function product_view() {
             basket.countBasketPrice();
             NextButton.classList.add('is_active');
             address.classList.remove('not_active');
+            comments_container.classList.remove('not_active');
+
         })
 
 
@@ -182,6 +186,7 @@ function product_view() {
 
         my_product.appendChild(my_product_text);
         my_product.appendChild(buy_button);
+
         products.appendChild(my_product);
 
 
@@ -213,8 +218,11 @@ let address = document.createElement('div');
 address.classList.add('address_container');
 
 let addressText = document.createElement('h3');
-addressText.classList.add('addres_container');
 addressText.innerText = 'Адрес доставки';
+
+let address_text_container = document.createElement('div');
+address_text_container.classList.add('comments_text_container');
+address_text_container.classList.add('not_active');
 
 let customer = document.createElement('p')
 customer.classList.add('input_text');
@@ -258,19 +266,28 @@ AddressNextButton.innerText = "Далее";
 AddressNextButton.classList.add('NextButton');
 AddressNextButton.classList.add('is_active');
 
+let AddressBackButton = document.createElement('button');
+AddressBackButton.innerText = "Вернуться";
+
 
 
 
 address.appendChild(addressText);
-address.appendChild(customer);
-address.appendChild(customerFullName);
-address.appendChild(customer_mail_text);
-address.appendChild(customerMail);
-address.appendChild(customer_phone_text);
-address.appendChild(customerPhone);
-address.appendChild(customer_city_text);
-address.appendChild(customerCity);
-address.appendChild(AddressNextButton);
+
+address_text_container.appendChild(customer);
+address_text_container.appendChild(customerFullName);
+address_text_container.appendChild(customer_mail_text);
+address_text_container.appendChild(customerMail);
+address_text_container.appendChild(customer_phone_text);
+address_text_container.appendChild(customerPhone);
+address_text_container.appendChild(customer_city_text);
+address_text_container.appendChild(customerCity);
+address_text_container.appendChild(AddressBackButton);
+address_text_container.appendChild(AddressNextButton);
+
+address.appendChild(address_text_container);
+
+
 
 
 
@@ -282,6 +299,9 @@ comments_Main.innerText = 'Комментарии';
 
 comments_container.appendChild(comments_Main);
 
+let comments_text_container = document.createElement('div');
+comments_text_container.classList.add('comments_text_container');
+comments_text_container.classList.add('not_active');
 
 let comments_text = document.createElement('p');
 comments_text.innerText = 'Комментарии к заказу:';
@@ -292,30 +312,42 @@ comments.rows = '5';
 comments.classList.add('comments_area');
 
 
+let commentsBackButton = document.createElement('button');
+commentsBackButton.innerText = "Вернуться";
+
 let sendButton = document.createElement('button');
 sendButton.innerText = "Оформить заказ!";
 
-comments_container.appendChild(comments_text);
-comments_container.appendChild(comments);
-comments_container.appendChild(sendButton);
 
 
 
 
+comments_text_container.appendChild(comments_text);
+comments_text_container.appendChild(comments);
+comments_text_container.appendChild(commentsBackButton);
+comments_text_container.appendChild(sendButton);
 
-{/* < div class="send_message_area" >
-    <form action="#">
-        <h4 class="send_message_headding">Send us message</h4>
-        <p class="input_text">Full Name</p>
-        <input class="input" type="text" placeholder="Ivanov Ivan"><br>
-            <p class="input_text">Mail</p>
-            <input class="input" type="email" placeholder="mail@mail.ru"> <br>
-                <p class="input_text">Message</p>
-                <textarea class="input" cols="30" rows="5"></textarea> <br>
-                    <button class="send_button" type="submit">Send</button>
-</form>
-</div> */}
+comments_container.appendChild(comments_text_container);
 
 
 
+AddressNextButton.addEventListener('click', () => {
+    comments_text_container.classList.remove('not_active');
+    address_text_container.classList.add('not_active');
+});
 
+commentsBackButton.addEventListener('click', () => {
+    comments_text_container.classList.add('not_active');
+    address_text_container.classList.remove('not_active');
+})
+
+
+NextButton.addEventListener('click', () => {
+    basket_container.classList.add('not_active')
+    address_text_container.classList.remove('not_active');
+})
+
+AddressBackButton.addEventListener('click', () => {
+    address_text_container.classList.add('not_active');
+    basket_container.classList.remove('not_active');
+})
