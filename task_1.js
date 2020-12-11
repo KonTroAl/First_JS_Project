@@ -3,6 +3,15 @@
 // но и редактировать его, обновляя общую стоимость или выводя 
 // сообщение «Корзина пуста».
 
+//2. На странице корзины:
+//  Сделать отдельные блоки «Состав корзины», «Адрес доставки», «Комментарий»;
+//  Сделать эти поля сворачиваемыми;
+//  Заполнять поля по очереди, то есть давать посмотреть состав корзины,
+//  внизу которого есть кнопка «Далее». 
+//  Если нажать ее, сворачивается «Состав корзины» и открывается «Адрес доставки» 
+//  и так далее.
+
+
 "use strict"
 
 let Product = [
@@ -30,33 +39,49 @@ let basket = {
         }
 
         if (res === 0) {
-            my_basket.innerHTML = "Корзина пуста!";
+            NextButton.classList.remove('is_active');
+            address.classList.add('not_active');
+            basket_text.textContent = "Корзина пуста!";
+            my_basket.appendChild(basket_main);
+            my_basket.appendChild(basket_text);
+
 
         } else {
             let str = `Общее количество товара: ${count}. Сумма покупки: ${res} рублей!
             В данный момент в корзине находится: `;
-            my_basket.textContent = str;
+            basket_text.textContent = str;
         }
 
 
         my_basket.appendChild(basket_container);
-
+        basket_container.appendChild(NextButton);
+        my_basket.appendChild(address);
+        my_basket.appendChild(comments_container);
 
     }
 }
 
 
 let my_basket = document.querySelector(".basket");
-my_basket.innerHTML = "Корзина пуста!";
 
 let basket_container = document.createElement("div");
 basket_container.classList.add('basket_container');
 
+let basket_main = document.createElement('h3');
+basket_main.innerText = 'Состав корзины';
+
+let basket_text = document.createElement('p');
+basket_text.innerText = "Корзина пуста!";
+
+my_basket.appendChild(basket_main);
+my_basket.appendChild(basket_text);
 my_basket.appendChild(basket_container);
 
 
 
 function basket_view(name) {
+
+
     let basket_products = document.createElement('div');
     basket_products.classList.add('basket_products');
 
@@ -95,6 +120,7 @@ function basket_view(name) {
                 Product[i]["num"] = count - 1
                 if (Product[i]["num"] === 0) {
                     basket_container.removeChild(basket_products);
+
 
                 } else {
                     let str = `Товар: ${Product[i]["name"]}. Количество: ${Product[i]["num"]}`;
@@ -138,29 +164,33 @@ function product_view() {
         my_product_text.className = 'product_text';
 
         let buy_button = document.createElement("button");
-        buy_button.className = "buy_button"
+        buy_button.className = "buy_button";
         buy_button.innerHTML = "Купить!";
-        buy_button.id = `${Product[count]["name"]}`
+        buy_button.id = `${Product[count]["name"]}`;
 
         buy_button.addEventListener('click', (e) => {
-            Buy_Basket(e.target.id)
-            basket_view(e.target.id)
-            basket.countBasketPrice()
+            Buy_Basket(e.target.id);
+            basket_view(e.target.id);
+            basket.countBasketPrice();
+            NextButton.classList.add('is_active');
+            address.classList.remove('not_active');
         })
 
 
         let str = `Наименование товара: ${Product[count]["name"]}. Цена ${Product[count]["cost"]} рублей.`;
         my_product_text.innerHTML = str;
 
-        my_product.appendChild(my_product_text)
-        my_product.appendChild(buy_button)
-        products.appendChild(my_product)
+        my_product.appendChild(my_product_text);
+        my_product.appendChild(buy_button);
+        products.appendChild(my_product);
+
 
         count++;
     }
 }
 
 product_view()
+
 
 function Buy_Basket(val) {
     for (let i = 0; i < Product.length; i++) {
@@ -169,5 +199,123 @@ function Buy_Basket(val) {
             Product[i]["num"] = count + 1
         }
     }
-
 }
+
+let NextButton = document.createElement('button');
+NextButton.innerText = "Далее";
+NextButton.classList.add('NextButton');
+
+
+
+// task 2
+
+let address = document.createElement('div');
+address.classList.add('address_container');
+
+let addressText = document.createElement('h3');
+addressText.classList.add('addres_container');
+addressText.innerText = 'Адрес доставки';
+
+let customer = document.createElement('p')
+customer.classList.add('input_text');
+customer.innerText = 'ФИО покупателя:'
+
+let customerFullName = document.createElement('input');
+customerFullName.type = 'text';
+customerFullName.placeholder = "Ivanov Ivan";
+customerFullName.classList.add('addres_input');
+
+let customer_mail_text = document.createElement('p')
+customer_mail_text.classList.add('input_text');
+customer_mail_text.innerText = 'Электронный адрес:'
+
+let customerMail = document.createElement('input');
+customerMail.type = 'email';
+customerMail.placeholder = "mail@mail.ru";
+customerMail.classList.add('addres_input');
+
+let customer_phone_text = document.createElement('p')
+customer_phone_text.classList.add('input_text');
+customer_phone_text.innerText = 'Мобильный телефон:'
+
+let customerPhone = document.createElement('input');
+customerPhone.type = 'text';
+customerPhone.placeholder = "+7-(999)-999-99-99";
+customerPhone.classList.add('addres_input');
+
+let customer_city_text = document.createElement('p')
+customer_city_text.classList.add('input_text');
+customer_city_text.innerText = 'Адрес доставки:'
+
+let customerCity = document.createElement('input');
+customerCity.type = 'text';
+customerCity.placeholder = "Россия, ХМАО-Югра, г.Сургут, ул.Ленина, д.39. кв.76";
+customerCity.classList.add('addres_input');
+
+
+let AddressNextButton = document.createElement('button');
+AddressNextButton.innerText = "Далее";
+AddressNextButton.classList.add('NextButton');
+AddressNextButton.classList.add('is_active');
+
+
+
+
+address.appendChild(addressText);
+address.appendChild(customer);
+address.appendChild(customerFullName);
+address.appendChild(customer_mail_text);
+address.appendChild(customerMail);
+address.appendChild(customer_phone_text);
+address.appendChild(customerPhone);
+address.appendChild(customer_city_text);
+address.appendChild(customerCity);
+address.appendChild(AddressNextButton);
+
+
+
+let comments_container = document.createElement('div');
+comments_container.classList.add('comments_container');
+
+let comments_Main = document.createElement('h3');
+comments_Main.innerText = 'Комментарии';
+
+comments_container.appendChild(comments_Main);
+
+
+let comments_text = document.createElement('p');
+comments_text.innerText = 'Комментарии к заказу:';
+
+let comments = document.createElement('textarea');
+comments.cols = '30';
+comments.rows = '5';
+comments.classList.add('comments_area');
+
+
+let sendButton = document.createElement('button');
+sendButton.innerText = "Оформить заказ!";
+
+comments_container.appendChild(comments_text);
+comments_container.appendChild(comments);
+comments_container.appendChild(sendButton);
+
+
+
+
+
+{/* < div class="send_message_area" >
+    <form action="#">
+        <h4 class="send_message_headding">Send us message</h4>
+        <p class="input_text">Full Name</p>
+        <input class="input" type="text" placeholder="Ivanov Ivan"><br>
+            <p class="input_text">Mail</p>
+            <input class="input" type="email" placeholder="mail@mail.ru"> <br>
+                <p class="input_text">Message</p>
+                <textarea class="input" cols="30" rows="5"></textarea> <br>
+                    <button class="send_button" type="submit">Send</button>
+</form>
+</div> */}
+
+
+
+
